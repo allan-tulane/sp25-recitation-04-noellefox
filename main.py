@@ -1,7 +1,7 @@
 # recitation-04
 
 from collections import defaultdict
-
+import string 
 
 #### PART ONE ###
 
@@ -37,8 +37,8 @@ def word_count_map(doc):
     [('i', 1), ('am', 1), ('sam', 1), ('i', 1), ('am', 1)]
     """
     ###TODO
-    
-    
+    split_string = doc.split()
+    return [(split_string[i], 1) for i in range(len(split_string))]
 
 
 def word_count_reduce(group):
@@ -55,6 +55,9 @@ def word_count_reduce(group):
     """
     ###TODO
     
+    phrase, list_of_occurences = group
+    count = reduce(lambda x, y: x + y, 0, list_of_occurences)
+    return (phrase, count)
     
 
 
@@ -122,5 +125,22 @@ def sentiment_map(doc,
     >>> sentiment_map('it was a terrible waste of time')
     [('negative', 1), ('negative', 1)]
     """
-    ###TODO
+     # Remove punctuation and convert text to lowercase
+    cleaned_doc = doc.translate(str.maketrans('', '', string.punctuation)).lower()
 
+        # Split into words
+    words = cleaned_doc.split()
+
+        # Generate sentiment pairs
+    sentiment_counts = []
+    for word in words:
+        if word in pos_terms:
+            sentiment_counts.append(("positive", 1))
+        elif word in neg_terms:
+            sentiment_counts.append(("negative", 1))
+
+    return sentiment_counts
+
+
+test_sentence = "it was a terrible waste of time"
+print(sentiment_map(test_sentence))

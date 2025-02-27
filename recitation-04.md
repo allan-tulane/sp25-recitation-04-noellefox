@@ -1,8 +1,7 @@
 # CMPS 2200  Recitation 04
 
-**Name (Team Member 1):**_________________________  
-**Name (Team Member 2):**_________________________
-
+**Name (Team Member 1):**___Noelle Fox______  
+**Name (Team Member 2):**___Mohini Yadav 
 
 In this lab you will practice using the `map` and `reduce` functions. These functions are commonly used together in a `map-reduce` framework, used by Google and others to parallelize and scale common computations.
 
@@ -38,6 +37,9 @@ To use this function to count words, you'll need to implement your own `map_f` a
 
 **Enter answer here**
 
+W(n) = O(n)
+S(n) = O(log(n))
+
 
 5. Why are we going through all this trouble? Couldn't I just use this function to count words?
 
@@ -53,6 +55,8 @@ for doc in docs:
 What is the problem that prevents us from easily parallelizing this solution?
 
 **Enter answer here**
+
+While using 'reduce' allows all counts to run separately and merge at the end, changing 'counts' as a shared array (as done above) forces multiple branches to access and modify the data at the same time. This can lead to conflicts because ' counts[term] = counts.get(term, 0) + 1' is three steps in that it reads, modifys, and then writes into the array, so parallelizing can be diffucult and updates can override one another. 
 
 
 ## Part 2: Sentiment analysis
